@@ -12,6 +12,8 @@ public interface FacturaService {
 
     Page<Factura> getPageByUserId(String userId, String nombre, Pageable pageable);
     Page<Factura> getPageByEmail(String email, String nombre, Pageable pageable);
+    Page<Factura> getPageByUserIdNot(String userId, Pageable pageable);
+    Page<Factura> getPageByEmailNot(String email, Pageable pageable);
 
     Optional<FacturaDto> getById(String id);
 

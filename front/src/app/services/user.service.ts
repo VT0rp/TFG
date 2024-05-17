@@ -18,8 +18,7 @@ export class UserService {
     return this.http.get<any>(this.baseUrl + "/role", {headers: { Authorization: `Bearer ${token}` }});
   }
 
-  getUsername():Observable<any>{
-    const token = this.authService.getToken();
+  getUsername(token: string):Observable<any>{
     return this.http.get<any>(this.baseUrl + "/username", {headers: { Authorization: `Bearer ${token}` }})
   }
 
@@ -29,6 +28,11 @@ export class UserService {
     if(username){
       urlEndpoint = urlEndpoint + username;
     }
+    return this.http.get<UserPage[]>(urlEndpoint, {headers: { Authorization: `Bearer ${token}` }});
+  }
+  getAllUsersNoFilter(page:number, size:number, email: string):Observable<UserPage[]>{
+    const token = this.authService.getToken();
+    let urlEndpoint: string = this.baseUrl + "/page" + "?page=" + page + "&size=" + size + "&email=" + email;
     return this.http.get<UserPage[]>(urlEndpoint, {headers: { Authorization: `Bearer ${token}` }});
   }
 
@@ -47,10 +51,14 @@ export class UserService {
     return this.http.get<User>(this.baseUrl + "/getUserById/" + id, {headers: { Authorization: `Bearer ${token}` }})
   }
 
-  updateUser(id: string, user: User):Observable<any>{
+  updateUser(id: string, updaterId: string, user: User):Observable<any>{
     const token = this.authService.getToken();
-    return this.http.put(this.baseUrl + "/update/" + id, user, {headers: { Authorization: `Bearer ${token}` }})
+    return this.http.put(this.baseUrl + "/update/" + id + "/" + updaterId, user, {headers: { Authorization: `Bearer ${token}` }})
   }
 
+  getUserByName(name: string):Observable<User>{
+    const token = this.authService.getToken();
+    return this.http.get<User>(this.baseUrl + "/getUserByUsername/" + name, {headers: { Authorization: `Bearer ${token}` }});
+}
 
 }

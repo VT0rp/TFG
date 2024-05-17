@@ -87,6 +87,7 @@ export class FacturaComponent implements OnInit{
           },
           error: (error) => {
             console.error('Error al actualizar la factura', error);
+            alert('No se ha podido actualizar, es posible que el nombre exista');
           }
         });
       }

@@ -43,19 +43,21 @@ export class UserUpdateComponent implements OnInit{
     }
   }
   update(): void {
-    this.userService.updateUser(this.ar.snapshot.params["id"],this.user).subscribe({
-      next: (response) => {
-        this.authService.saveToken(response.token);
-        this.router.navigate(['/userManagement']).then(()=>{
-          window.location.reload();
-        })
-      },
-      error: (error) => {
-        console.error('There was an error!', error);
-      }
-    });
+    let updaterId = localStorage.getItem("userId");
+    if(updaterId != null){
+      this.userService.updateUser(this.ar.snapshot.params["id"], updaterId,this.user).subscribe({
+        next: (response) => {
+          this.authService.saveToken(response.token);
+          this.router.navigate(['/userManagement']).then(()=>{
+            window.location.reload();
+          })
+        },
+        error: (error) => {
+          console.error('There was an error!', error);
+        }
+      });
+    }
   }
-
   loadUser(id: string){
     this.userService.getUserById(id).subscribe({
       next: value => {

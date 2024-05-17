@@ -55,7 +55,7 @@ public class UserPersistanceImpl implements UserPersistance {
 
     @Override
     public Page<User> getPageFiltered(String email, String username, Pageable pageable){
-        return this.userMdbRepository.findAllByEmailAndUsernameContainingIgnoreCase(username, email, pageable);
+        return this.userMdbRepository.findAllByEmailAndUsernameStartingWithIgnoreCase(username, email, pageable);
     }
 
     @Override
@@ -93,5 +93,10 @@ public class UserPersistanceImpl implements UserPersistance {
         user.get().setLastName(userDto.getLastName());
 
         return Optional.of(userMdbRepository.save(user.get()));
+    }
+
+    @Override
+    public Optional<User> getUserByUsername(String username) {
+        return this.userMdbRepository.findByUsername(username);
     }
 }

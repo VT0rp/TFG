@@ -27,7 +27,11 @@ public class FacturaPersistanceImpl implements FacturaPersistance {
     }
     @Override
     public Page<Factura> find(String email, String nombre, Pageable pageable) {
-        return facturaMdbRepository.findAllByEmailAndNombreContainingIgnoreCase(email, nombre, pageable);
+        return facturaMdbRepository.findAllByEmailAndNombreStartingWithIgnoreCase(email, nombre, pageable);
+    }
+    @Override
+    public Page<Factura> findNot(String email, Pageable pageable) {
+        return facturaMdbRepository.findAllByEmail(email, pageable);
     }
 
     @Override
@@ -37,7 +41,12 @@ public class FacturaPersistanceImpl implements FacturaPersistance {
 
     @Override
     public Page<Factura> findByUserId(String userId, String nombre, Pageable pageable) {
-        return facturaMdbRepository.findAllByUserIdAndAndNombreContainingIgnoreCase(userId, nombre, pageable);
+        return facturaMdbRepository.findAllByUserIdAndAndNombreStartingWithIgnoreCase(userId, nombre, pageable);
+    }
+
+    @Override
+    public Page<Factura> findByUserIdNot(String userId, Pageable pageable) {
+        return facturaMdbRepository.findAllByUserId(userId, pageable);
     }
 
     @Override
@@ -65,7 +74,8 @@ public class FacturaPersistanceImpl implements FacturaPersistance {
 
     @Override
     public Optional<Factura> create(Factura factura){
-        if(facturaMdbRepository.existsByNombreAndEmail(factura.getNombre(), factura.getEmail())){
+        Optional<Factura> facturaEcontrada = facturaMdbRepository.findByNombreAndEmail(factura.getNombre(), factura.getEmail());
+        if(facturaEcontrada.isPresent()){
             return Optional.empty();
         }
         factura.setTotal(getTotal(factura.getItems(), factura.getDescuento()));

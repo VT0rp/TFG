@@ -70,10 +70,38 @@ export class FacturaManageComponent implements OnInit{
     }
   }
 
+  private getAllFacturasPagedByUserId(){
+    let userId: string | null = localStorage.getItem("userId");
+    if(userId != null){
+      this.facturaService.getPageByUserIdNot(this.page, this.size,userId).subscribe({
+        next: (data: any) => {
+          this.listaFacturas = data.content;
+          this.totalPages = data.totalPages;
+          console.log(this.totalPages);
+        },
+        error: (error) => { console.error(error) }
+      });
+    }
+  }
+
   private getAllFacturasPagedFilteredByEmail(): void {
     let email: string | null = localStorage.getItem("email");
     if(email != null){
       this.facturaService.getPageByEmail(this.page, this.size,email, this.nombre).subscribe({
+        next: (data: any) => {
+          this.listaFacturas = data.content;
+          this.totalPages = data.totalPages;
+          console.log(this.totalPages);
+        },
+        error: (error) => { console.error(error) }
+      });
+    }
+  }
+
+  private getAllFacturasPagedByEmail(){
+    let email: string | null = localStorage.getItem("email");
+    if(email != null){
+      this.facturaService.getPageByEmailNot(this.page, this.size,email).subscribe({
         next: (data: any) => {
           this.listaFacturas = data.content;
           this.totalPages = data.totalPages;
@@ -99,10 +127,25 @@ export class FacturaManageComponent implements OnInit{
 
   getAction(){
     if(this.role == "USER"){
-      this.getAllFacturasPagedFilteredByUserId();
+      this.getPageUserId();
     }
     if(this.role == "ADMIN"){
-      this.getAllFacturasPagedFilteredByEmail();
+      this.getPageUserEmail();
+    }
+  }
+  getPageUserId(){
+    if(this.nombre !== ''){
+      this.getAllFacturasPagedFilteredByUserId();
+    }else{
+      this.getAllFacturasPagedByUserId();
+    }
+  }
+
+  getPageUserEmail(){
+    if(this.nombre !== ''){
+      this.getAllFacturasPagedFilteredByEmail()
+    }else{
+      this.getAllFacturasPagedByEmail();
     }
   }
 

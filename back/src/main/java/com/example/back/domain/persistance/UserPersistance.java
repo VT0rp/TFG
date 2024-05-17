@@ -22,4 +22,6 @@ public interface UserPersistance {
     ResponseEntity delete(String id);
 
     Optional<User> update(String id, UserDto userDto);
+
+    Optional<User> getUserByUsername(String username);
 }

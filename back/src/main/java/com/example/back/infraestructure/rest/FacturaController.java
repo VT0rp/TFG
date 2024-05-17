@@ -6,6 +6,7 @@ import com.example.back.domain.entity.Factura;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,11 +27,21 @@ public class FacturaController {
         Pageable pageable = PageRequest.of(page, size);
         return facturaService.getPageByUserId(userId, nombre, pageable);
     }
+    @GetMapping("/pagedUserIdNot/{id}")
+    public Page<Factura> getPageByUserIdNot(@PathVariable("id") String userId, @RequestParam("page") int page, @RequestParam("size") int size){
+        Pageable pageable = PageRequest.of(page, size);
+        return facturaService.getPageByUserIdNot(userId, pageable);
+    }
 
     @GetMapping("/pagedEmail")
     public Page<Factura> getPageByEmail(@RequestParam("email") String email, @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("nombre") String nombre){
         Pageable pageable = PageRequest.of(page, size);
         return facturaService.getPageByEmail(email, nombre, pageable);
+    }
+    @GetMapping("/pagedEmailNot")
+    public Page<Factura> getPageByEmailNot(@RequestParam("email") String email, @RequestParam("page") int page, @RequestParam("size") int size){
+        Pageable pageable = PageRequest.of(page, size);
+        return facturaService.getPageByEmailNot(email, pageable);
     }
 
     @GetMapping("/get/{id}")
@@ -44,8 +55,13 @@ public class FacturaController {
     }
 
     @PostMapping("/create")
-    public Optional<FacturaDto> create(@RequestBody FacturaDto factura){
-        return facturaService.create(factura);
+    public ResponseEntity create(@RequestBody FacturaDto factura)
+    {
+        Optional<FacturaDto> isThereFactura = facturaService.create(factura);
+        if(isThereFactura.isEmpty()){
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")

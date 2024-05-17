@@ -11,10 +11,12 @@ import java.util.Optional;
 public interface FacturaPersistance {
 
     Page<Factura> find(String email, String nombre, Pageable pageable);
+    Page<Factura> findNot(String email, Pageable pageable);
 
     Optional<Factura> findById(String id);
 
     Page<Factura> findByUserId(String userId, String nombre, Pageable pageable);
+    Page<Factura> findByUserIdNot(String userId, Pageable pageable);
 
     ResponseEntity update(String id, FacturaDto facturaDto);
 

@@ -20,6 +20,8 @@ public interface UserService {
 
     ResponseEntity deleteUser(String id);
 
-    Optional<UserDto> updateUser(String id, UserDto userDto);
+    Optional<UserDto> updateUser(String id, String updaterId, UserDto userDto);
+
+    Optional<UserDto> getUserByUsername(String nombre);
 
 }

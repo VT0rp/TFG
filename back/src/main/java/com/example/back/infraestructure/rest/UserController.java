@@ -100,13 +100,18 @@ public class UserController {
         return userService.deleteUser(id);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity updateUser(@PathVariable("id") String id, @RequestBody UserDto userDto){
-        Optional<UserDto> userUpdated = userService.updateUser(id, userDto);
+    @PutMapping("/update/{id}/{updaterId}")
+    public ResponseEntity updateUser(@PathVariable("id") String id, @PathVariable("updaterId") String updaterId, @RequestBody UserDto userDto){
+        Optional<UserDto> userUpdated = userService.updateUser(id, updaterId, userDto);
         if(userUpdated.isEmpty()){
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
         String token = jwtService.generateToken(userUpdated.get());
         return ResponseEntity.ok(new AuthResponse(token));
+    }
+
+    @GetMapping("/getUserByUsername/{nombre}")
+    public Optional<UserDto> getUserByUsername(@PathVariable("nombre")String nombre){
+        return this.userService.getUserByUsername(nombre);
     }
 }

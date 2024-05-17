@@ -23,6 +23,11 @@ export class FacturaService {
     }
     return this.http.get<FacturaPage>(urlEndpoint, {headers: { Authorization: `Bearer ${token}` }});
   }
+  getPageByUserIdNot(page: number, size: number, userId: string):Observable<FacturaPage>{
+    const token = this.authService.getToken();
+    let urlEndpoint: string = this.baseUrl + "/pagedUserIdNot/" + userId + "?page=" + page + "&size=" + size;
+    return this.http.get<FacturaPage>(urlEndpoint, {headers: { Authorization: `Bearer ${token}` }});
+  }
 
   getPageByEmail(page: number, size: number, email: string, nombre: string):Observable<FacturaPage>{
     const token = this.authService.getToken();
@@ -30,6 +35,11 @@ export class FacturaService {
     if(nombre){
       urlEndpoint = urlEndpoint + nombre;
     }
+    return this.http.get<FacturaPage>(urlEndpoint, {headers: { Authorization: `Bearer ${token}` }});
+  }
+  getPageByEmailNot(page: number, size: number, email: string):Observable<FacturaPage>{
+    const token = this.authService.getToken();
+    let urlEndpoint: string = this.baseUrl + "/pagedEmailNot" + "?page=" + page + "&size=" + size + "&email=" + email;
     return this.http.get<FacturaPage>(urlEndpoint, {headers: { Authorization: `Bearer ${token}` }});
   }
 

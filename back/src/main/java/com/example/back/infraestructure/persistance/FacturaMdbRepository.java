@@ -9,9 +9,12 @@ import java.util.Optional;
 
 public interface FacturaMdbRepository extends MongoRepository<Factura, String> {
 
-    Page<Factura> findAllByEmailAndNombreContainingIgnoreCase(String email,String nombre, Pageable pageable);
+    Page<Factura> findAllByEmailAndNombreStartingWithIgnoreCase(String email,String nombre, Pageable pageable);
 
-    Page<Factura> findAllByUserIdAndAndNombreContainingIgnoreCase(String userId, String nombre, Pageable pageable);
+    Page<Factura> findAllByUserIdAndAndNombreStartingWithIgnoreCase(String userId, String nombre, Pageable pageable);
+    Page<Factura> findAllByEmail(String email, Pageable pageable);
+
+    Page<Factura> findAllByUserId(String userId, Pageable pageable);
 
     Optional<Factura> findByNombre(String nombre);
 

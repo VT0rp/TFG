@@ -72,7 +72,11 @@ export class FacturaCreateComponent implements  OnInit{
           })
         },
         error: (error) => {
-          console.error('There was an error!', error);
+          if(!error){
+          }else{
+            console.error('There was an error!', error);
+            alert("No se ha podido realizar la acción, es posible que el nombre exista");
+          }
         }
       });
     }

@@ -29,10 +29,18 @@ public class FacturaServiceImpl implements FacturaService {
     public Page<Factura> getPageByUserId(String userId, String nombre, Pageable pageable) {
         return facturaPersistance.findByUserId(userId, nombre, pageable);
     }
+    @Override
+    public Page<Factura> getPageByUserIdNot(String userId, Pageable pageable) {
+        return facturaPersistance.findByUserIdNot(userId, pageable);
+    }
 
     @Override
     public Page<Factura> getPageByEmail(String email, String nombre, Pageable pageable) {
         return facturaPersistance.find(email, nombre, pageable);
+    }
+    @Override
+    public Page<Factura> getPageByEmailNot(String email, Pageable pageable) {
+        return facturaPersistance.findNot(email, pageable);
     }
 
     @Override

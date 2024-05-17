@@ -3,6 +3,7 @@ package com.example.back.application.service.impl;
 import com.example.back.application.dto.UserDto;
 import com.example.back.application.mapper.UserMapper;
 import com.example.back.application.service.UserService;
+import com.example.back.domain.entity.Role;
 import com.example.back.domain.entity.User;
 import com.example.back.domain.persistance.UserPersistance;
 import org.springframework.data.domain.Page;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Service
@@ -59,11 +61,29 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<UserDto> updateUser(String id, UserDto userDto){
+    public Optional<UserDto> updateUser(String id, String updaterId, UserDto userDto){
         Optional<User> userUpdated = userPersistance.update(id, userDto);
         if(userUpdated.isEmpty()){
             return Optional.empty();
         }
-        return Optional.of(userMapper.toDto(userUpdated.get()));
+        if(id.equals(updaterId) && userUpdated.get().getRole() == Role.ADMIN){
+            return Optional.of(userMapper.toDto(userUpdated.get()));
+        }else{
+            Optional<User> updaterUser = userPersistance.findById(updaterId);
+            if(!updaterUser.isEmpty()){
+                userUpdated.get().setUsername(updaterUser.get().getUsername());
+            }
+            return Optional.of(userMapper.toDto(userUpdated.get()));
+        }
+
+    }
+
+    @Override
+    public Optional<UserDto> getUserByUsername(String nombre){
+        Optional<User> user = this.userPersistance.getUserByUsername(nombre);
+        if(user.isEmpty()){
+            return Optional.empty();
+        }
+        return Optional.of(userMapper.toDto(user.get()));
     }
 }

@@ -17,11 +17,11 @@ export class UserManageComponent {
   totalPages: number = 0;
 
   constructor(private userService: UserService) {
-    this.getAllUsersPagedFiltered();
+    this.getPage();
   }
 
   filtered(){
-    this.getAllUsersPagedFiltered();
+    this.getPage();
   }
 
   deleteUser(id: string){
@@ -40,14 +40,35 @@ export class UserManageComponent {
   anterior(){
     if(this.page != 0){
       this.page = this.page - 1;
-      this.getAllUsersPagedFiltered();
+      this.getPage();
     }
   }
 
   siguiente(){
     if(this.page != (this.totalPages - 1)){
       this.page = this.page + 1;
+      this.getPage();
+    }
+  }
+
+  private getPage(){
+    if(this.username !== ''){
       this.getAllUsersPagedFiltered();
+    }else{
+      this.getPageWithoutFilters();
+    }
+  }
+
+  private getPageWithoutFilters(){
+    let email: string | null = localStorage.getItem("email");
+    if(email != null){
+      this.userService.getAllUsersNoFilter(this.page, this.size,email).subscribe({
+        next: (data: any) => {
+          this.listaUsers = data.content;
+          this.totalPages = data.totalPages;
+        },
+        error: (error) => { console.error(error) }
+      });
     }
   }
 
@@ -70,7 +91,7 @@ export class UserManageComponent {
 
   limpiarFiltrado(){
     this.reset();
-    this.getAllUsersPagedFiltered();
+    this.getPage();
   }
 
   protected readonly faSquarePen = faSquarePen;

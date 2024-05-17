@@ -1,0 +1,46 @@
+<div class="container">
+  <form #facturaForm="ngForm" (ngSubmit)="generateFactura()" class="mt-lg-5">
+    <h1 class="h-100 text-center title">{{factura.nombre}}</h1>
+    <table class="table mt-lg-5 text-center">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">Nombre Artículo</th>
+        <th scope="col">Cantidad</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Descuento%</th>
+        <th scope="col">IVA%</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of itemsList">
+        <td>{{item.nombre}}</td>
+        <td>{{item.cantidad}}</td>
+        <td>{{item.precio}}</td>
+        <td>{{item.descuento}}%</td>
+        <td>{{item.iva}}%</td>
+      </tr>
+      </tbody>
+    </table>
+    <table class="table mt-lg-5 text-center">
+      <thead class="thead-dark">
+      <tr>
+        <th></th>
+        <th></th>
+        <th scope="col">Descuento Factura</th>
+        <th scope="col">Total</th>
+        <th scope="col">Total IVA</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td>{{factura.descuento}}%</td>
+          <td>{{factura.total | currency: 'EUR'}}</td>
+          <td>{{ factura.totalIva | currency: 'EUR'}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <button *ngIf="!generating" type="submit" class="btn btn-outline-dark mt-5">Generar</button>
+  </form>
+</div>

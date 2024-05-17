@@ -1,0 +1,20 @@
+@media print {
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  app-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+  }
+}
+router-outlet{
+  height: 82vh;
+}
+.pageContainer{
+  height: 82.6vh;
+}

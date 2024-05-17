@@ -1,0 +1,23 @@
+/* You can add global styles to this file, and also import other style files */
+@media print {
+  @page {
+    margin: 0;
+    size: auto;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  /* Ocultar elementos específicos en la impresión */
+  header, footer {
+    display: none;
+  }
+}
+body, html{
+  height: 100%;
+  margin: 0;
+}
+app-root{
+  display: block;
+  height: 100%;
+}

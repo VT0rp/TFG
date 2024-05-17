@@ -1,0 +1,33 @@
+<div class="container">
+  <button class="btn btn-outline-dark mt-lg-5" [routerLink]="'/userRegister'">Crear Usuario</button>
+  <div class="mt-lg-5">
+    <button class="button btn btn-outline-dark" (click)="filtered()"><fa-icon [icon]="faFilter" class="col-6"></fa-icon></button>
+    <input type="text" placeholder="username" class="ms-3 form-control-sm" [(ngModel)]="username">
+    <button class="button ms-4 btn btn-outline-dark text-danger" (click)="limpiarFiltrado()">X</button>
+  </div>
+  <table class="table mt-lg-5">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">UserName</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Apellidos</th>
+      <th scope="col">Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of listaUsers">
+      <td>{{user.username}}</td>
+      <td>{{user.firstName}}</td>
+      <td>{{user.lastName}}</td>
+      <td class="row acciones">
+        <button [routerLink]="'/userUpdate/' + user.id" class="button btn btn-outline-dark"><fa-icon [icon]="faSquarePen" class="col-6"></fa-icon></button>
+        <button *ngIf="user.role == 'USER'" (click)="deleteUser(user.id)" class="button ms-4 btn btn-outline-dark"><fa-icon [icon]="faTrashCan" class="col-6 text-danger"></fa-icon></button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="container">
+    <button *ngIf="page >= 1" (click)="anterior()" class="me-4 btn btn-outline-dark">Anterior</button>
+    <button *ngIf="totalPages != 0 && page != totalPages - 1" (click)="siguiente()" class="btn btn-outline-dark">Siguiente</button>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: demo
+  data:
+    mongodb:
+      uri: mongodb+srv://root:root@cluster0.3pjlat4.mongodb.net/FacturaExpress?retryWrites=true&w=majority
+  datasource:
+    url: jdbc:h2:file:./back;DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  h2:
+    console:
+      enabled: true
+      path: /console
+  profiles:
+    active: dev
+  sql:
+    init:
+      mode: always

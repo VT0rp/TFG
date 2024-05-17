@@ -1,0 +1,174 @@
+<div class="container">
+  <h1 class="mt-4">Crear Factura</h1>
+  <form #facturaForm="ngForm" (ngSubmit)="create(facturaForm)" class="mt-lg-5" (keydown)="preventFormSubmit($event)">
+    <div class="mb-3">
+      <label for="nombrefactura" class="form-label">Nombre</label>
+      <input
+        type="text"
+        class="form-control"
+        id="nombrefactura"
+        name="nombrefactura"
+        [(ngModel)]="factura.nombre"
+        required
+        minlength="3"
+        #nombrefactura="ngModel"
+      >
+      <div *ngIf="nombrefactura.invalid && (nombrefactura.dirty || nombrefactura.touched)" class="text-danger">
+        <div *ngIf="nombrefactura.errors?.['required']">El nombre es requerido.</div>
+        <div *ngIf="nombrefactura.errors?.['minlength']">El nombre debe tener al menos 3 caracteres.</div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="dfactura" class="form-label">Descuento</label>
+      <input
+        type="number"
+        class="form-control"
+        id="dfactura"
+        name="dfactura"
+        [(ngModel)]="factura.descuento"
+        required
+        min="0"
+        max="100"
+        #dfactura="ngModel"
+        (change)="getTotals()"
+      >
+      <div *ngIf="dfactura.invalid && (dfactura.dirty || dfactura.touched)" class="text-danger">
+        <div *ngIf="dfactura.errors?.['required']">El descuento es requerido.</div>
+        <div *ngIf="dfactura.errors?.['min']">El descuento no puede ser menor que 0.</div>
+        <div *ngIf="dfactura.errors?.['max']">El descuento no puede ser mayor que 100.</div>
+      </div>
+    </div>
+    <form #facturaItemForm="ngForm" (ngSubmit)="addItem(facturaItemForm)" class="mt-lg-5" (keydown)="preventFormSubmit($event)">
+      <table class="table mt-lg-5 text-center">
+        <thead class="thead-dark">
+        <tr>
+          <th scope="col">Nombre Artículo</th>
+          <th scope="col">Cantidad</th>
+          <th scope="col">Precio</th>
+          <th scope="col">Descuento%</th>
+          <th scope="col">IVA%</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of itemsList">
+          <td>{{item.nombre}}</td>
+          <td>{{item.cantidad}}</td>
+          <td>{{item.precio}}</td>
+          <td>{{item.descuento}}%</td>
+          <td>{{item.iva}}%</td>
+        </tr>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th>Total</th>
+          <th>Total IVA</th>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>{{factura.total | currency: 'EUR'}}</td>
+          <td>{{ factura.totalIva | currency: 'EUR'}}</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <th scope="col">Nombre Artículo</th>
+          <th scope="col">Cantidad</th>
+          <th scope="col">Precio</th>
+          <th scope="col">Descuento%</th>
+          <th scope="col">IVA%</th>
+        </tr>
+        <tr>
+          <td>
+            <input
+              type="text"
+              class="form-control-sm"
+              id="nombre"
+              name="nombre"
+              [(ngModel)]="item.nombre"
+              required
+              #nombre="ngModel"
+            >
+            <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="text-danger">
+              <div *ngIf="nombre.errors?.['required']">El nombre es requerido.</div>
+            </div>
+          </td>
+          <td>
+            <input
+              type="number"
+              class="form-control-sm"
+              id="cantidad"
+              name="cantidad"
+              [(ngModel)]="item.cantidad"
+              required
+              min="1"
+              #cantidad="ngModel"
+            >
+            <div *ngIf="cantidad.invalid && (cantidad.dirty || cantidad.touched)" class="text-danger">
+              <div *ngIf="cantidad.errors?.['required']">La cantidad es requerida.</div>
+              <div *ngIf="cantidad.errors?.['min']">La cantidad debe ser al menos 1.</div>
+            </div>
+          </td>
+          <td>
+            <input
+              type="number"
+              class="form-control-sm"
+              id="precio"
+              name="precio"
+              [(ngModel)]="item.precio"
+              required
+              min="0"
+              #precio="ngModel"
+            >
+            <div *ngIf="precio.invalid && (precio.dirty || precio.touched)" class="text-danger">
+              <div *ngIf="precio.errors?.['required']">El precio es requerido.</div>
+              <div *ngIf="precio.errors?.['min']">El precio no puede ser negativo.</div>
+            </div>
+          </td>
+          <td>
+            <input
+              type="number"
+              class="form-control-sm"
+              id="descuento"
+              name="descuento"
+              [(ngModel)]="item.descuento"
+              required
+              min="0"
+              max="100"
+              #descuento="ngModel"
+            >
+            <div *ngIf="descuento.invalid && (descuento.dirty || descuento.touched)" class="text-danger">
+              <div *ngIf="descuento.errors?.['required']">El descuento es requerido.</div>
+              <div *ngIf="descuento.errors?.['min']">El descuento no puede ser menor que 0.</div>
+              <div *ngIf="descuento.errors?.['max']">El descuento no puede ser mayor que 100.</div>
+            </div>
+          </td>
+          <td>
+            <input
+              type="number"
+              class="form-control-sm"
+              id="iva"
+              name="iva"
+              [(ngModel)]="item.iva"
+              required
+              min="0"
+              max="100"
+              #iva="ngModel"
+            >
+            <div *ngIf="iva.invalid && (iva.dirty || iva.touched)" class="text-danger">
+              <div *ngIf="iva.errors?.['required']">El IVA es requerido.</div>
+              <div *ngIf="iva.errors?.['min']">El IVA no puede ser menor que 0.</div>
+              <div *ngIf="iva.errors?.['max']">El IVA no puede ser mayor que 100.</div>
+            </div>
+          </td>
+        </tr>
+        </tfoot>
+      </table>
+      <button type="submit" class="btn btn-primary" [disabled]="!facturaItemForm.valid">Insertar Item</button>
+      <button type="button" class="btn btn-secondary ms-3" (click)="cancel()">Cancelar</button>
+    </form>
+    <button type="submit" class="btn btn-outline-dark mt-5" [disabled]="!facturaForm.valid">Crear Factura</button>
+  </form>
+</div>

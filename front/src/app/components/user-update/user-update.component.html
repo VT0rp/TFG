@@ -1,0 +1,52 @@
+<div class="container">
+  <h1 class="mt-4">Registrar Usuario</h1>
+  <form #userForm="ngForm" (ngSubmit)="userAction(userForm)" class="mt-lg-5" (keydown)="preventFormSubmit($event)">
+    <div class="mb-3">
+      <label for="username" class="form-label">Nombre de Usuario</label>
+      <input type="text"
+             class="form-control"
+             id="username"
+             name="username"
+             [(ngModel)]="user.username"
+             required
+             minlength="4"
+             #username="ngModel">
+      <div *ngIf="username.invalid && (username.dirty || username.touched)" class="text-danger">
+        <div *ngIf="username.errors?.['required']">El nombre de usuario es obligatorio.</div>
+        <div *ngIf="username.errors?.['minlength']">El nombre de usuario debe tener al menos 4 caracteres.</div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="firstname" class="form-label">Nombre</label>
+      <input type="text"
+             class="form-control"
+             id="firstname"
+             name="firstname"
+             [(ngModel)]="user.firstName"
+             required
+             minlength="2"
+             #firstname="ngModel">
+      <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="text-danger">
+        <div *ngIf="firstname.errors?.['required']">El nombre es obligatorio.</div>
+        <div *ngIf="firstname.errors?.['minlength']">El nombre debe tener al menos 2 caracteres.</div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="lastname" class="form-label">Apellidos</label>
+      <input type="text"
+             class="form-control"
+             id="lastname"
+             name="lastname"
+             [(ngModel)]="user.lastName"
+             required
+             minlength="2"
+             #lastname="ngModel">
+      <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="text-danger">
+        <div *ngIf="lastname.errors?.['required']">Los apellidos son obligatorios.</div>
+        <div *ngIf="lastname.errors?.['minlength']">Los apellidos deben tener al menos 2 caracteres.</div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">Update</button>
+    <button type="button" class="btn btn-secondary ms-3" (click)="cancel()">Cancelar</button>
+  </form>
+</div>

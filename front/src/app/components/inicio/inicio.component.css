@@ -1,0 +1,23 @@
+.container{
+  height: 50vh;
+}
+img{
+  border: 1px solid black;
+  height: 50%;
+  width: 75%;
+}
+.w-35{
+  width: 35%;
+}
+.h40{
+  height: 35%;
+}
+p{
+  margin-bottom: 0;
+}
+.hh75{
+  height: 75%;
+}
+.div2 {
+  margin-top: 50%;
+}

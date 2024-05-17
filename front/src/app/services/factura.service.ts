@@ -5,12 +5,13 @@ import {UserPage} from "../interfaces/UserPage";
 import {Factura, FacturaPage} from "../interfaces/FacturaPage";
 import {Observable} from "rxjs";
 import {FacturaCreate} from "../interfaces/FacturaCreate";
+import {environment} from "../../environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class FacturaService {
-  private baseUrl: string = 'http://localhost:8080/api/v1/factura'
+  private baseUrl: string = environment.apiUrl + '/api/v1/factura'
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 

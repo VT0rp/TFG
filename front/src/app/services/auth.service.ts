@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable, Subject} from "rxjs";
+import {environment} from "../../environment";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class AuthService {
   private role = new Subject<string>();
   role$: Observable<string> = this.role.asObservable();
   valid$: Observable<boolean> = this.isValid.asObservable();
-  private baseUrl: string = 'http://localhost:8080'
+  private baseUrl: string = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 

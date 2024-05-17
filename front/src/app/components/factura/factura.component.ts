@@ -4,6 +4,7 @@ import {FacturaCreate} from "../../interfaces/FacturaCreate";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FacturaService} from "../../services/factura.service";
 import {NgForm} from "@angular/forms";
+import {faTrashCan} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-factura',
@@ -48,6 +49,11 @@ export class FacturaComponent implements OnInit{
         }
       })
     }
+  }
+
+  deleteItem(item: Item){
+    const index = this.itemsList.indexOf(item);
+    this.itemsList.splice(index, 1);
   }
 
   preventFormSubmit(event: KeyboardEvent) {
@@ -120,4 +126,5 @@ export class FacturaComponent implements OnInit{
     this.item = {nombre: '', cantidad: 0, precio: 0, descuento: 0, iva: 0};
   }
 
+    protected readonly faTrashCan = faTrashCan;
 }

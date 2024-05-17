@@ -4,6 +4,7 @@ import {NgForm} from "@angular/forms";
 import {Factura, Item} from "../../interfaces/FacturaPage";
 import {FacturaCreate} from "../../interfaces/FacturaCreate";
 import {FacturaService} from "../../services/factura.service";
+import {faTrashCan} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-factura-create',
@@ -46,6 +47,11 @@ export class FacturaCreateComponent implements  OnInit{
   getTotals(){
     this.getTotal();
     this.getTotalIva();
+  }
+
+  deleteItem(item: Item){
+    const index = this.itemsList.indexOf(item);
+    this.itemsList.splice(index, 1);
   }
 
   create(form: NgForm): void {
@@ -104,4 +110,6 @@ export class FacturaCreateComponent implements  OnInit{
   resetItemForm(){
     this.item = {nombre: '', cantidad: 0, precio: 0, descuento: 0, iva: 0};
   }
+
+    protected readonly faTrashCan = faTrashCan;
 }

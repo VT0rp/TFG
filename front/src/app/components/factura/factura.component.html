@@ -56,6 +56,7 @@
           <td>{{item.precio}}</td>
           <td>{{item.descuento}}</td>
           <td>{{item.iva}}</td>
+          <td><button (click)="deleteItem(item)" class="button ms-4 btn btn-outline-dark"><fa-icon [icon]="faTrashCan" class="col-6 text-danger"></fa-icon></button></td>
         </tr>
         <tr>
           <th></th>
@@ -169,6 +170,6 @@
       <button type="submit" class="btn btn-primary" [disabled]="!facturaItemForm.valid">Insertar Item</button>
       <button type="button" class="btn btn-secondary ms-3" (click)="cancel()">Cancelar</button>
     </form>
-    <button type="submit" class="btn btn-outline-dark mt-5" [disabled]="!facturaForm.valid">Actualizar Factura</button>
+    <button type="submit" class="btn btn-outline-dark mt-5" [disabled]="!facturaForm.valid || !(itemsList.length >= 1)">Actualizar Factura</button>
   </form>
 </div>

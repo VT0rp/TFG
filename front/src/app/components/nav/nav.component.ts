@@ -55,6 +55,11 @@ export class NavComponent implements OnInit{
     }
   }
 
+  toInicio(){
+    this.router.navigateByUrl("/inicio").then(()=>{
+      window.location.reload();
+    })
+  }
 
   tokenExists(){
     return this.authService.getToken() != null;

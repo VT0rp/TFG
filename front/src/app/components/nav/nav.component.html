@@ -1,6 +1,6 @@
 <nav hidden="{{hidden}}" class="navbar navbar-light bg-light justify-content-between bg-dark text-light">
   <a class="navbar-brand text-light" *ngIf="!valid"> </a>
-  <a class="navbar-brand ms-2 text-light" *ngIf="valid" [routerLink]='"/inicio"'>{{username}}</a>
+  <a class="navbar-brand ms-2 text-light toIni" *ngIf="valid" (click)="toInicio()">{{username}}</a>
   <div>
     <a class="btn btn-outline-light me-3" *ngIf="role == 'ADMIN'" [routerLink]="'/userManagement'">USER MANAGEMENT</a>
     <a class="btn btn-outline-light" *ngIf="role" [routerLink]="'/facturaManagement'">FACTURA MANAGEMENT</a>

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container text-center">
   <h1 class="mt-4">Login</h1>
   <form #loginForm="ngForm" (ngSubmit)="login()" class="mt-lg-5" (keydown)="preventFormSubmit($event)">
     <div class="mb-3">
@@ -8,7 +8,7 @@
              placeholder="Username"
              required
              minlength="4"
-             class="form-control"
+             class="form-control-sm"
              #username="ngModel">
       <div *ngIf="username.invalid && (username.dirty || username.touched)" class="text-danger">
         <div *ngIf="username.errors?.['required']">El nombre de usuario es obligatorio.</div>
@@ -22,7 +22,7 @@
              placeholder="Password"
              required
              minlength="4"
-             class="form-control"
+             class="form-control-sm"
              #password="ngModel">
       <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
         <div *ngIf="password.errors?.['required']">La contraseña es obligatoria.</div>

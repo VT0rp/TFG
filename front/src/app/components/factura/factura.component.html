@@ -2,10 +2,10 @@
   <h1 class="mt-4">Actualizar Factura</h1>
   <form #facturaForm="ngForm" (ngSubmit)="update(facturaForm)" class="mt-lg-5" (keydown)="preventFormSubmit($event)">
     <div class="mb-3">
-      <label for="nombrefactura" class="form-label">Nombre</label>
       <input
         type="text"
-        class="form-control"
+        placeholder="Nombre Factura"
+        class="form-control-sm"
         id="nombrefactura"
         name="nombrefactura"
         [(ngModel)]="factura.nombre"
@@ -20,9 +20,10 @@
     </div>
     <div class="mb-3">
       <label for="dfactura" class="form-label">Descuento</label>
+      <br>
       <input
         type="number"
-        class="form-control"
+        class="form-control-sm"
         id="dfactura"
         name="dfactura"
         [(ngModel)]="factura.descuento"
@@ -168,8 +169,8 @@
         </tfoot>
       </table>
       <button type="submit" class="btn btn-primary" [disabled]="!facturaItemForm.valid">Insertar Item</button>
-      <button type="button" class="btn btn-secondary ms-3" (click)="cancel()">Cancelar</button>
     </form>
-    <button type="submit" class="btn btn-outline-dark mt-5" [disabled]="!facturaForm.valid || !(itemsList.length >= 1)">Actualizar Factura</button>
+    <button type="submit" class="btn btn-primary mt-5" [disabled]="!facturaForm.valid || !(itemsList.length >= 1)">Actualizar Factura</button>
+    <button type="button" class="btn btn-secondary ms-3 mt-5" (click)="cancel()">Cancelar</button>
   </form>
 </div>

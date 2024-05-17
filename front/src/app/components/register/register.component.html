@@ -1,10 +1,10 @@
-<div class="container">
-  <h1 class="mt-4">Registrar Usuario</h1>
+<div class="container text-center">
+  <h1 class="mt-4">Registrar Admin</h1>
   <form #userForm="ngForm" (ngSubmit)="personaAction(userForm)" class="mt-lg-5" (keydown)="preventFormSubmit($event)">
     <div class="mb-3">
-      <label for="username" class="form-label">Nombre de Usuario</label>
       <input type="text"
-             class="form-control"
+             placeholder="UserName"
+             class="form-control-sm"
              id="username"
              name="username"
              [(ngModel)]="user.username"
@@ -17,9 +17,9 @@
       </div>
     </div>
     <div class="mb-3">
-      <label for="firstname" class="form-label">Nombre</label>
       <input type="text"
-             class="form-control"
+             placeholder="Nombre"
+             class="form-control-sm"
              id="firstname"
              name="firstname"
              [(ngModel)]="user.firstName"
@@ -32,9 +32,9 @@
       </div>
     </div>
     <div class="mb-3">
-      <label for="lastname" class="form-label">Apellidos</label>
       <input type="text"
-             class="form-control"
+             placeholder="Apellidos"
+             class="form-control-sm"
              id="lastname"
              name="lastname"
              [(ngModel)]="user.lastName"
@@ -47,9 +47,9 @@
       </div>
     </div>
     <div class="mb-3">
-      <label for="email" class="form-label">Email</label>
       <input type="email"
-             class="form-control"
+             placeholder="Email"
+             class="form-control-sm"
              id="email"
              name="email"
              [(ngModel)]="user.email"
@@ -62,9 +62,9 @@
       </div>
     </div>
     <div class="mb-3">
-      <label for="password" class="form-label">Contraseña</label>
       <input type="password"
-             class="form-control"
+             placeholder="Contraseña"
+             class="form-control-sm"
              id="password"
              name="password"
              [(ngModel)]="user.password"

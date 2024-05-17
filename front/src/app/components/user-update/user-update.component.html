@@ -1,10 +1,10 @@
-<div class="container">
-  <h1 class="mt-4">Registrar Usuario</h1>
+<div class="container text-center">
+  <h1 class="mt-4">Actualizar Usuario</h1>
   <form #userForm="ngForm" (ngSubmit)="userAction(userForm)" class="mt-lg-5" (keydown)="preventFormSubmit($event)">
     <div class="mb-3">
-      <label for="username" class="form-label">Nombre de Usuario</label>
       <input type="text"
-             class="form-control"
+             placeholder="Nombre Usuario"
+             class="form-control-sm"
              id="username"
              name="username"
              [(ngModel)]="user.username"
@@ -17,9 +17,9 @@
       </div>
     </div>
     <div class="mb-3">
-      <label for="firstname" class="form-label">Nombre</label>
       <input type="text"
-             class="form-control"
+             placeholder="Nombre"
+             class="form-control-sm"
              id="firstname"
              name="firstname"
              [(ngModel)]="user.firstName"
@@ -32,9 +32,9 @@
       </div>
     </div>
     <div class="mb-3">
-      <label for="lastname" class="form-label">Apellidos</label>
       <input type="text"
-             class="form-control"
+             placeholder="Apellidos"
+             class="form-control-sm"
              id="lastname"
              name="lastname"
              [(ngModel)]="user.lastName"
@@ -46,7 +46,7 @@
         <div *ngIf="lastname.errors?.['minlength']">Los apellidos deben tener al menos 2 caracteres.</div>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">Update</button>
+    <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">Actualizar</button>
     <button type="button" class="btn btn-secondary ms-3" (click)="cancel()">Cancelar</button>
   </form>
 </div>

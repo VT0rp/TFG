@@ -12,9 +12,6 @@
     margin: 0;
   }
 }
-router-outlet{
-  height: 82vh;
-}
 .pageContainer{
-  height: 82.6vh;
+  height: 100%;
 }
